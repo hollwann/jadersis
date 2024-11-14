@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "pretty": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "target": "ESNext",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "experimentalDecorators": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts"
+  ],
+}

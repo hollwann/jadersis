@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace
+      
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:9.1.0@sha256:0255b469f0135a0236d672d60e3154ae2f4538b146744966d96440318cc822c6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: jadersis
+    ports:
+      - "3306:3306"

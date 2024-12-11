@@ -3,7 +3,7 @@ import {
     IBlockchainProvider,
     IBridgeProvider,
     ITransactionDb,
-  } from '@/interfaces';
+  } from './interfaces';
   
   interface TransferUSDTBetweenContractsConstructor {
     repositoryDb: IRepositoryDb;

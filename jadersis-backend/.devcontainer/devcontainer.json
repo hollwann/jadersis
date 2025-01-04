@@ -1,6 +1,8 @@
 {
   "name": "Node.js with MySQL",
-  "dockerComposeFile": ["docker-compose.yml"],
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
   "service": "app",
   "workspaceFolder": "/workspace",
   "postCreateCommand": "npm install",
@@ -15,5 +17,22 @@
       "onAutoForward": "ignore"
     }
   },
-  "forwardPorts": [3001, 3306]
+  "forwardPorts": [
+    3001,
+    3306,
+    8545,
+    5100
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "sourcegraph.cody-ai",
+      ],
+      "settings": {
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "always"
+        }
+      }
+    }
+  }
 }

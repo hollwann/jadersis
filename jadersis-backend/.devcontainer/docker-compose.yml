@@ -12,6 +12,7 @@ services:
       - "3001:3001"
     depends_on:
       - mysql
+      - ethereum-node
 
   mysql:
     image: mysql:9.1.0@sha256:0255b469f0135a0236d672d60e3154ae2f4538b146744966d96440318cc822c6
@@ -21,3 +22,16 @@ services:
       MYSQL_DATABASE: jadersis
     ports:
       - "3306:3306"
+
+  ethereum-node:
+    build:
+      dockerfile: Dockerfile.EthereumNode
+    ports:
+      - "8545:8545"
+
+  ethereum-explorer:
+    image: otterscan/otterscan:latest
+    environment:
+      ERIGON_URL: http://ethereum-node:8545
+    ports:
+      - "5100:80"

@@ -1,48 +1,33 @@
 <script lang="ts">
-	import { reownModal } from '$lib/reown';
-	type WalletData = {
-		name?: string;
-		icon?: string;
-		address?: string;
-		isConnected: boolean;
-	};
-	let walletData = $state({
-		isConnected: false
-	} as WalletData);
+	import { disconnectWallet, reownModal, walletData } from '$lib/reown.svelte';
+	import { readContract } from '@wagmi/core';
+	import { onMount } from 'svelte';
 
-	reownModal.subscribeWalletInfo((walletInfo) => {
-		if (!walletInfo) return;
-		walletData.name = walletInfo.name;
-		walletData.icon = walletInfo.icon;
-	});
+	export const abi = [
+		{
+			type: 'function',
+			name: 'balanceOf',
+			stateMutability: 'view',
+			inputs: [{ name: 'account', type: 'address' }],
+			outputs: [{ type: 'uint256' }]
+		},
+		{
+			type: 'function',
+			name: 'totalSupply',
+			stateMutability: 'view',
+			inputs: [],
+			outputs: [{ name: 'supply', type: 'uint256' }]
+		}
+	] as const;
 
-	reownModal.subscribeAccount((account) => {
-		if (!account) return;
-		walletData.address = account.address;
-		walletData.isConnected = account.isConnected;
-	});
-	const disconnectWallet = () =>
-		reownModal
-			.disconnect()
-			.then(() => {
-				walletData.isConnected = false;
-			})
-			.catch((error) => {
-				console.error(error);
-			})
-			.finally(() => {
-				console.log('disconnectWallet');
-			});
-
-	reownModal.subscribeNetwork((network) => {
-		console.log('network', network);
-	});
-
-	reownModal.subscribeState((state) => {
-		console.log('state', state);
-	});
-
-	$inspect(walletData);
+	// 	onMount(() => {
+	// 		const result = await readContract(config, {
+	//   abi,
+	//   address: '0x6b175474e89094c44da98b954eedeac495271d0f',
+	//   functionName: 'totalSupply',
+	// })
+	// 		console.log(result);
+	// 	});
 </script>
 
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
@@ -53,7 +38,14 @@
 	<p>Wallet Address:{walletData.address}</p>
 	<p>Wallet Status:</p>
 	<span style="color:green">Connected</span>
-	<button onclick={() => disconnectWallet()}> Wallet Disconnect </button>
+	<button
+		onclick={async () => {
+			console.log('universalAdapter', reownModal);
+			disconnectWallet();
+		}}
+	>
+		Wallet Disconnect
+	</button>
 {:else}
 	<button onclick={() => reownModal.open()}> Wallet Connect </button>
 {/if}

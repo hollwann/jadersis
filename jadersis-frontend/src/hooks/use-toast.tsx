@@ -1,7 +1,6 @@
 import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { Box } from "framer-motion";
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 6000; // Adjusted to a more typical delay for MUI Snackbar

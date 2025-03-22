@@ -42,17 +42,29 @@ const platformData = [
 ];
 
 const StakingCard = ({ platform }) => (
-  <Card sx={{ display: "flex", alignItems: "center", padding: 2, margin: 2 }}>
+  <Card
+    sx={{
+      display: "flex",
+      alignItems: "flex-start",
+      padding: 3,
+      margin: 2,
+      width: "100%",
+    }}
+  >
     <Box sx={{ marginRight: 2 }}>
       <img
         src={platform.logo}
         alt={platform.title}
-        style={{ width: "50px", height: "50px", borderRadius: "8px" }}
+        style={{ width: "60px", height: "60px", borderRadius: "8px" }}
       />
     </Box>
-    <Box>
+    <Box sx={{ flex: 1 }}>
       <Typography variant="h6">{platform.title}</Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ whiteSpace: "normal", wordBreak: "break-word" }}
+      >
         {platform.description}
       </Typography>
       <Typography variant="body2" sx={{ fontWeight: "bold" }}>
@@ -177,7 +189,7 @@ export const Overview = () => {
         <Box
           sx={{
             display: "flex", // Use flex layout
-            flexDirection: "column", // Horizontal alignment
+            flexDirection: "row", // Align items in a row
             gap: 3, // Spacing between cards
             padding: 3, // Inner padding
             backgroundColor: "#f9f9f9", // Light background for contrast
